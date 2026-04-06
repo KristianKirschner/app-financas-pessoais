@@ -7,10 +7,17 @@ const AuthStack = createNativeStackNavigator();
 
 export default function AuthRoutes(){
     return(
-    <AuthStack.Navigator>
+    <AuthStack.Navigator
+        screenOptions={{
+            animation: 'slide_from_bottom'
+        }}
+    >
         <AuthStack.Screen
             name="SignIn"
             component={SignIn}
+            options={{
+                headerShown: false,
+            }}
         />
         <AuthStack.Screen
             name="SignUp"
