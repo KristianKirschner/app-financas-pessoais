@@ -1,31 +1,30 @@
-import { Text, View } from 'react-native';
 import {
   Background,
   Container,
-  Logo,
   AreaInput,
   Input,
   SubmitButton,
   SubmitText,
-  Link,
-  LinkText,
 } from '../SignIn/styles';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/auth';
 
 export default function SignUp() {
+  const { user } = useContext(AuthContext);
   return (
     <Background>
       <Container behavior={Platform.OS === 'ios' ? 'padding' : ''} enabled>
         <AreaInput>
-        <Input placeholder='Nome' />
+          <Input placeholder="Nome" />
         </AreaInput>
         <AreaInput>
-        <Input placeholder='Email' />
+          <Input placeholder="Email" />
         </AreaInput>
         <AreaInput>
-        <Input placeholder='Senha' />
+          <Input placeholder="Senha" />
         </AreaInput>
         <SubmitButton>
-            <SubmitText>Cadastrar</SubmitText>
+          <SubmitText>Cadastrar</SubmitText>
         </SubmitButton>
       </Container>
     </Background>
