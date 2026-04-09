@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 import {
   Background,
   Container,
@@ -35,6 +35,7 @@ export default function SignIn() {
         <SubmitButton activeOpacity={0.7}>
           <SubmitText>Acessar</SubmitText>
         </SubmitButton>
+
 
         <Link>
           <LinkText
