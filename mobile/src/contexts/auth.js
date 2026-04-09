@@ -5,28 +5,33 @@ import { useNavigation } from '@react-navigation/native';
 export const AuthContext = createContext(null);
 
 function AuthProvider({children}){
-    const [user, setUser] = useState({
-        nome: 'carlos',
+    const [user, setUser] = useState(null);
+    const [loadingAuth, setloadingAuth] = useState(false);
 
-    });
+    
 
     const navigation = useNavigation()
 
     async function signUp(email, password, nome) {
+
+        setloadingAuth(true)
+
         try{
             const response = await api.post('/users', {
                 name: nome,
                 email: email,
                 password: password
             })
+            setloadingAuth(false);
             navigation.goBack();
         }catch(err){
-            console.log("Erro ao cadastrar: ", err)
+            console.log("Erro ao cadastrar: ", err);
+            setloadingAuth(false)
         }
     }
 
     return(
-        <AuthContext.Provider value={{user, signUp}}>
+        <AuthContext.Provider value={{user, signUp, loadingAuth}}>
             {children}
         </AuthContext.Provider>
     )
