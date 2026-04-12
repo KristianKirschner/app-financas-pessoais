@@ -2,13 +2,12 @@ import { Background, Input, SubmitButton, SubmitText } from './styles';
 import Header from '../../components/Header';
 import { Keyboard, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
 import { useState } from 'react';
+import RegisterTypes from '../../components/RegisterTypes';
 
 export default function New() {
   const [labelInput, setLabelInput] = useState('');
-
   const [valueInput, setValueInput] = useState('');
-
-  const [type, setType] = useState('');
+  const [type, setType] = useState('receita');
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -28,6 +27,8 @@ export default function New() {
             value={valueInput}
             onChange={text => setValueInput(text)}
           />
+
+          <RegisterTypes type={type} sendTypeChanged={item => setType(item)} />
 
           <SubmitButton>
             <SubmitText>Registrar</SubmitText>
