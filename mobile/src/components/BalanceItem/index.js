@@ -17,7 +17,7 @@ export default function BalanceItem({data}){
         } else {
             return{
                 label: 'Saídas de hoje',
-                color: '3F463a'
+                color: 'cf0f0f'
             }
         }
     },[data])

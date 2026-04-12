@@ -1,13 +1,58 @@
 import { Background, Input, SubmitButton, SubmitText } from './styles';
 import Header from '../../components/Header';
-import { Keyboard, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
+import {
+  Alert,
+  Keyboard,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { useState } from 'react';
 import RegisterTypes from '../../components/RegisterTypes';
+import api from '../../services/api'
+import { format, set } from 'date-fns';
+import { useNavigation } from '@react-navigation/native';
 
 export default function New() {
+  const navigation = useNavigation();
+
   const [labelInput, setLabelInput] = useState('');
   const [valueInput, setValueInput] = useState('');
   const [type, setType] = useState('receita');
+
+  function handleSubmit() {
+    Keyboard.dismiss();
+
+    if (isNaN(parseFloat(valueInput)) || type === null) {
+      alert('Preencha todos os campos');
+      return;
+    }
+
+    Alert.alert(
+      'Confirmando dados',
+      `Tipo: ${
+        type.charAt(0).toUpperCase() + String(type).slice(1)
+      }\nNome: ${labelInput}\nValor: R$${parseFloat(valueInput)}`,
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        { text: 'Continuar', onPress: () => handleAdd() },
+      ],
+    );
+  }
+
+  async function handleAdd() {
+      Keyboard.dismiss()  
+
+      await api.post('/receive', {
+        description: labelInput,
+        value: Number(valueInput),
+        type: type,
+        date: format(new Date(), 'dd/MM/yyyy')
+      })
+
+      setLabelInput('')
+      setValueInput('')
+      navigation.navigate('Home')
+  }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -18,19 +63,19 @@ export default function New() {
           <Input
             placeholder="Descrição desse registro"
             value={labelInput}
-            onChange={text => setLabelInput(text)}
+            onChangeText={text => setLabelInput(text)}
           />
 
           <Input
             placeholder="Valor desejado"
             keyboardType="numeric"
             value={valueInput}
-            onChange={text => setValueInput(text)}
+            onChangeText={text => setValueInput(text)}
           />
 
           <RegisterTypes type={type} sendTypeChanged={item => setType(item)} />
 
-          <SubmitButton>
+          <SubmitButton onPress={handleSubmit}>
             <SubmitText>Registrar</SubmitText>
           </SubmitButton>
         </SafeAreaView>
