@@ -2,6 +2,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import Home from "../pages/Home";
 import New from "../pages/New";
+import Profile from "../pages/Profile";
 
 const Drawer = createDrawerNavigator();
 
@@ -31,6 +32,10 @@ export default function AppRoutes(){
             <Drawer.Screen 
                 name="Registrar"
                 component={New}
+            />
+            <Drawer.Screen 
+                name="Perfil"
+                component={Profile}
             />
         </Drawer.Navigator>
 
