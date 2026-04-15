@@ -8,6 +8,10 @@ import {
 import { View } from 'react-native';
 import { useState } from 'react';
 import {Calendar, LocaleConfig } from 'react-native-calendars'
+import { ptBr } from './localeCalendar';
+
+LocaleConfig.locales['pt-BR'] = ptBr
+LocaleConfig.defaultLocale= 'pt-BR'
 
 export default function CalendarModal({ setVisible, handleFilter }) {
   const [dateNow, setDateNow] = useState(new Date());
@@ -47,6 +51,7 @@ export default function CalendarModal({ setVisible, handleFilter }) {
                 selectedDayBackgroundColor: '#00adf6',
                 selectedDayTextColor: 'FFF'
             }}
+            
         />
 
         <ButtonFilter onPress={handleFilterDate}>
